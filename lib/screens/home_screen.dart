@@ -21,17 +21,37 @@ class _HomeScreenState extends State<HomeScreen> {
         ),
         body: Column(
           children: [
-            Row(mainAxisAlignment: MainAxisAlignment.center, children: [
-              Text(stopWatchNotifier.getTime(), style: const TextStyle(fontSize: 60)),
+            Column(mainAxisAlignment: MainAxisAlignment.center, children: [
+              Text(stopWatchNotifier.getLapTime(), style: const TextStyle(fontSize: 20, fontWeight: FontWeight.w200)),
+              Text(stopWatchNotifier.getTime(), style: const TextStyle(fontSize: 60, fontWeight: FontWeight.w200)),
             ]),
-            Row(mainAxisAlignment: MainAxisAlignment.spaceEvenly, children: [
-              _buildButtonColumn(stopWatchNotifier.start, const Icon(Icons.add, color: Colors.blue), 'Play'),
-              _buildButtonColumn(stopWatchNotifier.stop, const Icon(Icons.stop, color: Colors.blue), 'Stop'),
-              _buildButtonColumn(stopWatchNotifier.reset, const Icon(Icons.refresh, color: Colors.blue), 'Reset'),
-            ])
+            Row(mainAxisAlignment: MainAxisAlignment.spaceEvenly, children: _buildButtonColumns(stopWatchNotifier)),
+            ListView.builder(
+                shrinkWrap: true,
+                itemCount: stopWatchNotifier.getLaps().length,
+                itemBuilder: (BuildContext context, int index) {
+                  return SizedBox(
+                    height: 50,
+                    child: Center(child: Text(stopWatchNotifier.getLaps()[index].toString())),
+                  );
+                }),
           ],
         ));
   }
+}
+
+List<Column> _buildButtonColumns(StopWatchNotifier stopWatchNotifier) {
+  List<Column> buttons = [];
+
+  if (stopWatchNotifier.isRunning()) {
+    buttons.add(_buildButtonColumn(stopWatchNotifier.stop, const Icon(Icons.stop, color: Colors.blue), 'Stop'));
+    buttons.add(_buildButtonColumn(stopWatchNotifier.lap, const Icon(Icons.refresh, color: Colors.blue), 'Lap'));
+  } else {
+    buttons.add(_buildButtonColumn(stopWatchNotifier.start, const Icon(Icons.add, color: Colors.blue), 'Play'));
+    buttons.add(_buildButtonColumn(stopWatchNotifier.reset, const Icon(Icons.refresh, color: Colors.blue), 'Reset'));
+  }
+
+  return buttons;
 }
 
 Column _buildButtonColumn(Function action, Icon icon, String label) {

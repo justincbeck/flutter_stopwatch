@@ -13,11 +13,34 @@ class StopWatchNotifier with ChangeNotifier {
   }
 
   getTime() {
-    num currentMillis = _getTotalMillis();
-    num hours = (currentMillis / (60 * 60 * 1000)).floor() % 24;
-    num minutes = (currentMillis / (60 * 1000)).floor() % 60;
-    num seconds = (currentMillis / 1000).floor() % 60;
-    num millis = currentMillis % 60;
+    return _formatTime(_getTotalMillis());
+  }
+
+  getLapTime() {
+    return _formatTime(_getLapMillis());
+  }
+
+  List<String> getLaps() {
+    return _stopWatch.laps.map((lap) => _formatTime(lap)).toList();
+  }
+
+  String _pad(num number) {
+    return number < 10 ? "0$number" : number.toString();
+  }
+
+  _getTotalMillis() {
+    return _stopWatch.totalMillis;
+  }
+
+  _getLapMillis() {
+    return _stopWatch.lapMillis;
+  }
+
+  String _formatTime(timeInMillis) {
+    num hours = (timeInMillis / (60 * 60 * 1000)).floor() % 24;
+    num minutes = (timeInMillis / (60 * 1000)).floor() % 60;
+    num seconds = (timeInMillis / 1000).floor() % 60;
+    num millis = timeInMillis % 60;
 
     String paddedHours = _pad(hours);
     String paddedMinutes = _pad(minutes);
@@ -28,18 +51,6 @@ class StopWatchNotifier with ChangeNotifier {
       return "$paddedHours:$paddedMinutes:$paddedSeconds";
     }
     return "$paddedMinutes:$paddedSeconds.$paddedMillis";
-  }
-
-  String _pad(num number) {
-    if (number < 10) {
-      return "0$number";
-    } else {
-      return number.toString();
-    }
-  }
-
-  _getTotalMillis() {
-    return _stopWatch.totalMillis;
   }
 
   start() {
@@ -71,6 +82,7 @@ class StopWatchNotifier with ChangeNotifier {
   reset() {
     _stopWatch.totalMillis = 0;
     _stopWatch.lapMillis = 0;
+    _stopWatch.laps = [];
     notifyListeners();
   }
 }
