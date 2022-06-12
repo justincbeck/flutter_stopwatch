@@ -1,0 +1,18 @@
+{
+    "configurations": [
+        {
+            "name": "Flutter (Pixel 3a)",
+            "program": "lib/main.dart",
+            "deviceId": "emulator-5554",
+            "request": "launch",
+            "type": "dart"
+        },
+        {
+            "name": "Flutter (iPhone 12)",
+            "program": "lib/main.dart",
+            "deviceId": "8BCF7B18-C682-46E3-8EA5-040C06FE4D8B",
+            "request": "launch",
+            "type": "dart"
+        }
+    ]
+}
