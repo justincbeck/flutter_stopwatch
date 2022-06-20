@@ -50,6 +50,7 @@ class StopWatchNotifier with ChangeNotifier {
   }
 
   String getLapTime() {
+    // return '99:99.99';
     return _formatTime(_getLapMillis());
   }
 
@@ -66,10 +67,10 @@ class StopWatchNotifier with ChangeNotifier {
   }
 
   String _formatTime(timeInMillis) {
-    num hours = (timeInMillis / (60 * 60 * 1000)).floor() % 24;
-    num minutes = (timeInMillis / (60 * 1000)).floor() % 60;
-    num seconds = (timeInMillis / 1000).floor() % 60;
-    num millis = timeInMillis % 60;
+    num hours = ((timeInMillis / (60 * 60 * 1000)).floor() % 24).round();
+    num minutes = ((timeInMillis / (60 * 1000)).floor() % 60).round();
+    num seconds = ((timeInMillis / 1000).floor() % 60).round();
+    num millis = ((timeInMillis / 10) % 60).round();
 
     String paddedHours = _pad(hours);
     String paddedMinutes = _pad(minutes);
