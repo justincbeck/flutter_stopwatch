@@ -8,7 +8,7 @@ class StopWatchNotifier with ChangeNotifier {
   late Timer _timer;
   Logger logger = Logger();
 
-  start() {
+  void start() {
     DateTime start = DateTime.now();
     _stopWatch.start = start.millisecondsSinceEpoch - _stopWatch.totalMillis;
     _stopWatch.lapStart = start.millisecondsSinceEpoch - _stopWatch.lapMillis;
@@ -21,35 +21,35 @@ class StopWatchNotifier with ChangeNotifier {
     });
   }
 
-  stop() {
+  void stop() {
     _timer.cancel();
     _stopWatch.running = false;
     notifyListeners();
   }
 
-  lap() {
+  void lap() {
     DateTime now = DateTime.now();
     _stopWatch.lapStart = now.millisecondsSinceEpoch;
     _stopWatch.laps.add(_stopWatch.lapMillis);
     notifyListeners();
   }
 
-  reset() {
+  void reset() {
     _stopWatch.totalMillis = 0;
     _stopWatch.lapMillis = 0;
     _stopWatch.laps = [];
     notifyListeners();
   }
 
-  isRunning() {
+  bool isRunning() {
     return _stopWatch.running;
   }
 
-  getTime() {
+  String getTime() {
     return _formatTime(_getTotalMillis());
   }
 
-  getLapTime() {
+  String getLapTime() {
     return _formatTime(_getLapMillis());
   }
 
@@ -57,11 +57,11 @@ class StopWatchNotifier with ChangeNotifier {
     return _stopWatch.laps.map((lap) => _formatTime(lap)).toList();
   }
 
-  _getTotalMillis() {
+  num _getTotalMillis() {
     return _stopWatch.totalMillis;
   }
 
-  _getLapMillis() {
+  num _getLapMillis() {
     return _stopWatch.lapMillis;
   }
 

@@ -47,7 +47,7 @@ List<Column> _buildButtonColumns(StopWatchNotifier stopWatchNotifier) {
     buttons.add(_buildButtonColumn(stopWatchNotifier.stop, const Icon(Icons.stop, color: Colors.blue), 'Stop'));
     buttons.add(_buildButtonColumn(stopWatchNotifier.lap, const Icon(Icons.refresh, color: Colors.blue), 'Lap'));
   } else {
-    buttons.add(_buildButtonColumn(stopWatchNotifier.start, const Icon(Icons.add, color: Colors.blue), 'Play'));
+    buttons.add(_buildButtonColumn(stopWatchNotifier.start, const Icon(Icons.add, color: Colors.blue), 'Start'));
     buttons.add(_buildButtonColumn(stopWatchNotifier.reset, const Icon(Icons.refresh, color: Colors.blue), 'Reset'));
   }
 
