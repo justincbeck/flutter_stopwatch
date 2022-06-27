@@ -28,7 +28,7 @@ class AppState extends State<MyApp> {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: const HomeScreen(title: 'Flutter Demo Home Page'),
+      home: const HomeScreen(title: 'Stop Watch App'),
     );
   }
 }
